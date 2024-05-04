@@ -5,7 +5,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
   workflow_dispatch:
 
 jobs:
@@ -20,6 +19,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: python teste.py
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Bandit
+        run: pip install bandit
+      - name: Run Bandit
+        run: bandit -r . -f json -o bandit_results.json
+      - name: Upload Bandit Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: bandit-results
+          path: bandit_results.json
 
   deploy-job:
     runs-on: ubuntu-latest
