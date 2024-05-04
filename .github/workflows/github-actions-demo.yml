@@ -34,16 +34,16 @@ jobs:
           name: bandit-results
           path: bandit_results.json
 
-  send-notification:
+ send-notification:
     needs: security-scan
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord Notification
-        uses: discord/notification-action@v2
-        with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          message: "Um novo Pull Request foi aberto em ${{ github.repository }} por ${{ github.actor }}."
-
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{
+            "content": "Um novo Pull Request foi aberto em ${{ github.repository }} por ${{ github.actor }}."
+          }' ${{ secrets.DISCORD_WEBHOOK_URL }}
+          
   deploy-job:
     runs-on: ubuntu-latest
     steps:
