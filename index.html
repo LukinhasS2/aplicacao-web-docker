@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Aplicação Web</title>
+    <title>Conversor de Celsius para Fahrenheit</title>
 </head>
 <body>
-    <h1>Olá, mundo!</h1>
-    <p>Esta é uma aplicação web simples.</p>
+    <h1>Conversor de Celsius para Fahrenheit</h1>
+    <form id="converterForm">
+        <label for="celsiusInput">Temperatura em Celsius:</label>
+        <input type="number" id="celsiusInput" name="celsiusInput" required>
+        <button type="submit">Converter</button>
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById('converterForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var celsius = parseFloat(document.getElementById('celsiusInput').value);
+            var fahrenheit = (celsius * 9/5) + 32;
+            document.getElementById('resultado').innerHTML = celsius + " graus Celsius são equivalentes a " + fahrenheit.toFixed(2) + " graus Fahrenheit.";
+        });
+    </script>
 </body>
 </html>
