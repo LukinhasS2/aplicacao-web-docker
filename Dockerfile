@@ -10,6 +10,7 @@ COPY server.js .
 
 # Instala as dependências do servidor
 RUN npm install
+RUN npm install @ngrok/ngrok
 
 # Expõe a porta 8080
 EXPOSE 8080
